@@ -25,6 +25,14 @@ export class RecipeService{
             [
                 new Ingredient('chow chow', 2),
                 new Ingredient('mou-mou', 7)
+            ]),
+        new Recipe(
+            'Aloo gobi', 
+            'real indian delightfull food', 
+            'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-aloo-gobi-horizontal-1543273035.png',
+            [
+                new Ingredient('potatoes', 12),
+                new Ingredient('tomatoes', 3)
             ])
       ];
 
@@ -32,6 +40,10 @@ export class RecipeService{
 
     getRecipes(){
         return this.recipes.slice();
+    }
+
+    getRecipe(index: number){
+        return this.recipes[index];
     }
 
     addIngredientsToShoppingList(ingredients: Ingredient[]){
