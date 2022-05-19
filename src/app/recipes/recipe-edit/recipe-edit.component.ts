@@ -1,7 +1,7 @@
 import { RecurseVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ShoppingListService } from 'src/app/shopping-list/shopping-list.service';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
@@ -18,7 +18,8 @@ export class RecipeEditComponent implements OnInit {
   recipeForm!: FormGroup;
 
   constructor(private route: ActivatedRoute,
-              private recipeService: RecipeService) { }
+              private recipeService: RecipeService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.route.params
@@ -41,6 +42,7 @@ export class RecipeEditComponent implements OnInit {
     }else{
       this.recipeService.addRecipe(this.recipeForm.value);
     }
+    this.onCancel();
   }
 
   onAddIngredient(){
@@ -57,6 +59,10 @@ export class RecipeEditComponent implements OnInit {
 
   getControls() {
     return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
+
+  onCancel(){
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
   private initForm(){
